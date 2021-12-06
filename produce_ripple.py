@@ -82,6 +82,7 @@ if __name__ == '__main__':
     producer.send(kftopic1, key=bytes(str(nodeid), 'utf-8'), value=json.dumps({
         "namespace": namespace, 
         "event": nodeevent, 
+        "chain": [], 
         "node": {
             "id": nodeid, 
             "label": nodelabel
