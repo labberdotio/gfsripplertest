@@ -70,14 +70,17 @@ if __name__ == '__main__':
 
     producer = KafkaProducer(bootstrap_servers=[str(kafka_host) + ":" + str(kafka_port)], value_serializer=lambda x: x.encode('utf-8'))
 
+    namespace = "gfs1"
     nodeevent = "create_node"
-    nodeid = "1859"
+    # nodeid = "1859"
+    nodeid = "113" # ipb155 -> rhel-ens19
     nodelabel = "Ip"
 
     # message = payload.format("1", "name" + "1")
     # message = nodepayload.format(nodeevent, nodeid, nodelabel)
     # print(message)
     producer.send(kftopic1, key=bytes(str(nodeid), 'utf-8'), value=json.dumps({
+        "namespace": namespace, 
         "event": nodeevent, 
         "node": {
             "id": nodeid, 
