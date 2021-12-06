@@ -76,6 +76,9 @@ if __name__ == '__main__':
     nodeid = "113" # ipb155 -> rhel-ens19
     nodelabel = "Ip"
 
+    nodename = "ipb155"
+    nodeaddress = "10.88.88.155"
+
     # message = payload.format("1", "name" + "1")
     # message = nodepayload.format(nodeevent, nodeid, nodelabel)
     # print(message)
@@ -85,7 +88,9 @@ if __name__ == '__main__':
         "chain": [], 
         "node": {
             "id": nodeid, 
-            "label": nodelabel
+            "label": nodelabel, 
+            "name": nodename, 
+            "address": nodeaddress
         }
     }))
     sleep(1)
