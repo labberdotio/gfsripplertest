@@ -42,22 +42,22 @@ kfgroup = "ripple-group" # config.get("kf_group", "ripple-group")
 #     "link": {
 #         "id": 1234,
 #         "label": "label",
-#         "outV": 1235,
-#         "inV": 1236
-#     },
-#     "source": {
-#         "id": 1235,
-#         "label": "label"
-#     },
-#     "target": {
-#         "id": 1236,
-#         "label": "label"
+#         "source": {
+#             "id": 1235,
+#             "label": "label"
+#         },
+#         "target": {
+#             "id": 1236,
+#             "label": "label"
+#         }
 #     }
 # }
 # linkpayload = """
 # {
 # }
 # """
+
+
 
 if __name__ == '__main__':
 
@@ -70,24 +70,66 @@ if __name__ == '__main__':
 
     producer = KafkaProducer(bootstrap_servers=[str(kafka_host) + ":" + str(kafka_port)], value_serializer=lambda x: x.encode('utf-8'))
 
-    nodeevent = "create_node"
-    nodeid = "1859"
-    nodelabel = "Ip"
+    # namespace = "gfs1"
+    # nodeevent = "create_node"
+    # # nodeid = "1859"
+    # nodeid = "113" # ipb155 -> rhel-ens19
+    # nodelabel = "Ip"
+    # 
+    # nodename = "ipb155"
+    # nodeaddress = "10.88.88.155"
+    # 
+    # # message = payload.format("1", "name" + "1")
+    # # message = nodepayload.format(nodeevent, nodeid, nodelabel)
+    # # print(message)
+    # producer.send(kftopic1, key=bytes(str(nodeid), 'utf-8'), value=json.dumps({
+    #     "namespace": namespace, 
+    #     "event": nodeevent, 
+    #     # "chain": [], 
+    #     # "path": [], 
+    #     "node": {
+    #         "namespace": namespace, 
+    #         "id": nodeid, 
+    #         "label": nodelabel, 
+    #         "name": nodename, 
+    #         "address": nodeaddress
+    #     }
+    # }))
+    # sleep(1)
 
-    # message = payload.format("1", "name" + "1")
-    # message = nodepayload.format(nodeevent, nodeid, nodelabel)
-    # print(message)
-    producer.send(kftopic1, key=bytes(str(nodeid), 'utf-8'), value=json.dumps({
-        "event": nodeevent, 
-        "node": {
-            "id": nodeid, 
-            "label": nodelabel
-        }
-    }))
-    sleep(1)
+    namespace = "gfs1"
+    nodeevent = "create_link"
+    # nodeid = "1859"
+    nodeid = "113" # ipb155 -> rhel-ens19
+    nodelabel = "Ip"
+    
+    nodename = "ipb155"
+    nodeaddress = "10.88.88.155"
 
     # message = payload.format("2", "name" + "2")
     # producer.send(kftopic2, key=bytes("2", 'utf-8'), value=message)
-    # sleep(1)
+    # print(message)
+    producer.send(kftopic1, key=bytes(str(nodeid), 'utf-8'), value=json.dumps({
+        "namespace": namespace, 
+        "event": nodeevent, 
+        # "chain": [], 
+        # "path": [], 
+        "link": {
+            "namespace": namespace, 
+            "id": "123", 
+            "label": "label", 
+            "source": {
+                "namespace": namespace, 
+                "id": nodeid, 
+                "label": nodelabel, 
+            }, 
+            "target": {
+                "namespace": namespace, 
+                "id": nodeid, 
+                "label": nodelabel, 
+            }
+        }
+    }))
+    sleep(1)
 
     print('done')
